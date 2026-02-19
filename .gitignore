@@ -1,0 +1,32 @@
+# Build
+/target/
+/debug/
+
+# Environment
+.env
+*.pem
+*.key
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Deployment state
+deployments.json
+supervisord.log
+supervisord.pid
+
+# Rust
+**/*.rs.bk
+*.pdb
+
+# Python
+__pycache__/
+*.pyc
+.venv/

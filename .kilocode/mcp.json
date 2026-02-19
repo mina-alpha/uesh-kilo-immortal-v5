@@ -1,0 +1,108 @@
+{
+  "mcpServers": {
+    "evm-mcp": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/evm-mcp-server"],
+      "env": {
+        "ETHEREUM_RPC_URL": "https://rpc.ankr.com/eth",
+        "BASE_RPC_URL": "https://mainnet.base.org",
+        "ARBITRUM_RPC_URL": "https://arb1.arbitrum.io/rpc",
+        "POLYGON_RPC_URL": "https://polygon-rpc.com",
+        "CHAIN_IDS": "1,8453,42161,137",
+        "DEFAULT_CHAIN": "base"
+      },
+      "description": "EVM blockchain operations: deploy contracts, send transactions, read state, interact with DeFi protocols. Used for Treasury.sol deployment, MEV execution, oracle reads, and all on-chain operations.",
+      "tools": [
+        "deploy_contract",
+        "send_transaction",
+        "call_contract",
+        "get_balance",
+        "get_block",
+        "get_transaction",
+        "estimate_gas",
+        "get_logs",
+        "encode_function_data",
+        "decode_function_result"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/playwright-mcp-server"],
+      "env": {
+        "PLAYWRIGHT_HEADLESS": "true",
+        "PLAYWRIGHT_TIMEOUT": "30000"
+      },
+      "description": "Browser automation for: (1) Immunefi/Code4rena bounty submission, (2) Block explorer scraping when all RPCs are 429'd, (3) DeFi protocol interaction that requires browser, (4) Session management for bounty platforms.",
+      "tools": [
+        "navigate",
+        "click",
+        "fill",
+        "select",
+        "evaluate",
+        "screenshot",
+        "wait_for_selector",
+        "get_text",
+        "get_attribute"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/sequential-thinking-mcp-server"],
+      "description": "Multi-step reasoning for complex strategy decisions: (1) Kelly criterion position sizing with real market data, (2) Vulnerability analysis and severity assessment, (3) MEV opportunity evaluation and execution planning, (4) Phase transition decisions, (5) Self-evolution architecture planning.",
+      "tools": [
+        "think_step_by_step",
+        "analyze_options",
+        "evaluate_tradeoffs",
+        "plan_execution"
+      ]
+    }
+  },
+  "settings": {
+    "autoApprove": [
+      "evm-mcp:call_contract",
+      "evm-mcp:get_balance",
+      "evm-mcp:get_block",
+      "evm-mcp:get_logs",
+      "evm-mcp:estimate_gas",
+      "playwright:navigate",
+      "playwright:evaluate",
+      "playwright:get_text",
+      "playwright:screenshot",
+      "sequential-thinking:think_step_by_step",
+      "sequential-thinking:analyze_options"
+    ],
+    "requireApproval": [
+      "evm-mcp:deploy_contract",
+      "evm-mcp:send_transaction",
+      "playwright:click",
+      "playwright:fill"
+    ],
+    "maxTokensPerTool": 8192,
+    "defaultTimeout": 30000
+  },
+  "context": {
+    "project": "uesh-kilo-immortal-v5",
+    "phase": "SPARK",
+    "bootstrap_capital": 50,
+    "kelly_risk": 0.01,
+    "pnet_threshold": 0.003,
+    "treasury_wire_pct": 0.40,
+    "chains": ["base", "arbitrum", "polygon", "ethereum"],
+    "strategies": {
+      "hunter": {
+        "allocation": 0.80,
+        "patterns": 12,
+        "platforms": ["immunefi", "code4rena"]
+      },
+      "red_mev": {
+        "allocation": 0.20,
+        "strategies": ["shadow_wolf", "lucifer"],
+        "max_position_usd": 50
+      },
+      "blue": {
+        "unlock_threshold": 500,
+        "strategies": ["cross_dex_arb", "liquidation_snipe", "sandwich_defense"]
+      }
+    }
+  }
+}

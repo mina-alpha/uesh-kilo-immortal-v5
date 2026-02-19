@@ -1,0 +1,91 @@
+[package]
+name = "uesh-kilo-immortal-v5"
+version = "5.0.0"
+edition = "2021"
+authors = ["UESH Swarm Collective"]
+description = "Immortal UESH v5 - Autonomous Web3 organism with 30s tick phase engine"
+license = "MIT"
+repository = "https://github.com/mina-alpha/uesh-kilo-immortal-v5"
+
+[[bin]]
+name = "uesh"
+path = "src/main.rs"
+
+[dependencies]
+# Async runtime
+tokio = { version = "1.35", features = ["full"] }
+
+# Web framework / proxy
+axum = { version = "0.7", features = ["macros", "ws"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+
+# libp2p heartbeat + swarm
+libp2p = { version = "0.53", features = [
+    "tokio",
+    "tcp",
+    "noise",
+    "yamux",
+    "identify",
+    "ping",
+    "gossipsub",
+    "mdns",
+    "kad",
+] }
+
+# EVM / blockchain
+ethers = { version = "2.0", features = ["abigen", "ws", "rustls"] }
+alloy = { version = "0.1", features = ["full"] }
+
+# HTTP client for RPC rotation
+reqwest = { version = "0.11", features = ["json", "rustls-tls"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Config / env
+dotenvy = "0.15"
+envy = "0.4"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Crypto
+sha2 = "0.10"
+hex = "0.4"
+rand = "0.8"
+
+# Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Async utilities
+futures = "0.3"
+async-trait = "0.1"
+
+# CLI
+clap = { version = "4.4", features = ["derive", "env"] }
+
+# Retry / backoff
+backon = "0.4"
+
+# Metrics
+prometheus = "0.13"
+
+[dev-dependencies]
+tokio-test = "0.4"
+mockall = "0.12"
+tempfile = "3.9"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
+
+[profile.dev]
+opt-level = 0
+debug = true
