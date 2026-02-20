@@ -1,0 +1,25 @@
+# Build
+/target/
+/debug/
+
+# Environment
+.env
+*.pem
+*.key
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Rust
+**/*.rs.bk
+*.pdb
+
+# Logs
+*.log
